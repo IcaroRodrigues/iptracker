@@ -7,6 +7,10 @@ export const Main = styled.div`
   height: 100vh;
   display: flex;
   flex-direction: column;
+
+  .leaflet-container {
+    z-index: 5;
+  }
 `;
 
 export const Container = styled.div`
@@ -108,19 +112,24 @@ export const Location = styled.div`
   align-items: center;
   justify-content: center;
 
-  z-index: 1;
-
   width: 100vw;
 
   background: transparent;
   > div {
+    z-index: 10;
+    box-shadow: 0px 1px 1px;
     margin-top: 40px;
     display: flex;
+    border-radius: 20px;
+    min-width: 300px;
   }
 
   .location-group {
     display: flex;
     padding: 40px;
+    font-size: 14px;
+    min-width: 250px;
+    height: 160px;
 
     background: white;
 
@@ -139,8 +148,18 @@ export const Location = styled.div`
     }
   }
 
+  h2 {
+    margin-top: 10px;
+  }
+
+  h3 {
+    color: hsl(0, 0%, 59%);
+    font-size: 14px;
+    letter-spacing: 1px;
+  }
+
   .vertical-line {
-    border-left: 2px solid #ff0000;
+    border-left: 2px solid hsl(0, 0%, 86%);
     margin-right: 40px;
   }
 `;
