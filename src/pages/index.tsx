@@ -48,6 +48,20 @@ const Home: React.FC = () => {
     }
   }, []);
 
+  useEffect(() => {
+    try {
+      api.get(`https://extreme-ip-lookup.com/json/`).then((res) => {
+        console.log(res.data);
+      });
+
+      api.get("http://ip-api.com/json/").then((res) => {
+        setTimezone(res.data.timezone);
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }, []);
+
   const handleClick = useCallback((ev) => {
     ev.preventDefault();
 
