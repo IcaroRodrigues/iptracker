@@ -23,7 +23,6 @@ export const Container = styled.div`
 
   .container {
     width: 100%;
-    max-width: 1440px;
 
     display: flex;
 
@@ -46,7 +45,7 @@ export const Container = styled.div`
       input {
         flex: 1;
         width: 450px;
-        height: 50px;
+        height: 30px;
 
         border-radius: 10px 0px 0px 10px;
         border: none;
@@ -96,13 +95,53 @@ export const Input = styled.div`
   }
 
   svg {
-    background-color: white;
     position: absolute;
     right: 0;
     border-radius: 0px 10px 10px 0px;
 
     &:hover {
       cursor: pointer;
+    }
+  }
+
+  @media (max-width: 1000px) {
+    width: 400px;
+
+    input {
+      &::placeholder {
+        color: #666360;
+        font-size: 14px;
+      }
+    }
+  }
+
+  @media (max-width: 900px) {
+    width: 350px;
+    input {
+      &::placeholder {
+        color: #666360;
+        font-size: 12px;
+      }
+    }
+  }
+
+  @media (max-width: 835px) {
+    width: 300px;
+    input {
+      &::placeholder {
+        color: #666360;
+        font-size: 12px;
+      }
+    }
+  }
+
+  @media (max-width: 375px) {
+    width: 300px;
+    input {
+      &::placeholder {
+        color: #666360;
+        font-size: 12px;
+      }
     }
   }
 `;
@@ -115,37 +154,33 @@ export const Location = styled.div`
   width: 100vw;
 
   background: transparent;
-  > div {
-    z-index: 10;
-    box-shadow: 0px 1px 1px;
-    margin-top: 40px;
-    display: flex;
-    border-radius: 20px;
-    min-width: 300px;
-  }
 
-  .location-group {
+  .location-container {
     display: flex;
-    padding: 40px;
+
+    border-radius: 15px;
+    box-shadow: 0px 1px 1px;
+    margin-top: 50px;
+
     font-size: 14px;
-    min-width: 250px;
-    height: 160px;
+    min-height: 120px;
 
     background: white;
 
-    &:nth-child(1) {
-      display: flex;
-      flex-direction: column;
+    z-index: 10;
 
-      border-radius: 20px 0px 0px 20px;
+    img {
+      box-shadow: 0px 1px 5px;
+      border-radius: 10px;
+      width: 100px;
+      height: 70px;
+      flex: 1;
+      margin: 25px 20px 0px 40px;
     }
+  }
 
-    &:nth-last-child(1) {
-      display: flex;
-      flex-direction: column;
-
-      border-radius: 0px 20px 20px 0px;
-    }
+  .location-group {
+    padding: 30px 50px 0px 20px;
   }
 
   h2 {
@@ -159,7 +194,84 @@ export const Location = styled.div`
   }
 
   .vertical-line {
-    border-left: 2px solid hsl(0, 0%, 86%);
-    margin-right: 40px;
+    border-left: 2px solid hsl(0, 0%, 80%);
+    height: 60px;
+    margin-top: 30px;
+  }
+
+  @media (max-width: 1000px) {
+    .location-container {
+      font-size: 10px;
+      margin-top: 60px;
+      min-height: 100px;
+
+      img {
+        width: 70px;
+        height: 50px;
+      }
+    }
+
+    .vertical-line {
+      height: 50px;
+    }
+  }
+
+  @media (max-width: 850px) {
+    .location-container {
+      margin-top: 70px;
+      font-size: 9px;
+      min-height: 100px;
+
+      img {
+        width: 70px;
+        height: 50px;
+      }
+    }
+
+    .vertical-line {
+      height: 45px;
+    }
+  }
+
+  @media (max-width: 765px) {
+    .location-container {
+      margin-top: 70px;
+      font-size: 7px;
+      min-height: 90px;
+
+      img {
+        width: 70px;
+        height: 50px;
+        margin-left: 0px;
+      }
+    }
+    .vertical-line {
+      height: 45px;
+    }
+  }
+
+  @media (max-width: 375px) {
+    .location-container {
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      margin-top: 25px;
+      font-size: 7px;
+
+      img {
+        width: 50px;
+        height: 30px;
+        margin: 20px 0px 20px 0px;
+      }
+    }
+
+    .location-group {
+      width: 100%;
+      padding: 20px 50px 0px 20px;
+    }
+    .vertical-line {
+      display: none;
+    }
   }
 `;

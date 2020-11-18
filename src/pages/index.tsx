@@ -1,35 +1,30 @@
-import React, {
-  useEffect,
-  useState,
-  useRef,
-  useCallback,
-  useLayoutEffect,
-} from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import { IoIosArrowForward } from "react-icons/io";
+import CustomMarker from "../assets/maps-and-flags.svg";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-
+import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 
 import { api, key } from "../service/api";
-
 import { Container, Input, Location, Main } from "./styles";
 
+const customMarker = L.icon({
+  iconUrl: `${CustomMarker}`,
+  iconSize: [30, 30],
+});
+
 interface LocationData {
-  city: string;
-  country: string;
-  lat: string;
-  lng: string;
-  postalCode: string;
   timezone: string;
+  country_flag: string;
 }
 interface IpData {
   ip: string;
   isp: string;
+  city: string;
+  zip: string;
   location: LocationData;
-}
-
-interface Coordinates {
-  latitute: number;
+  region_code: string;
+  latitude: number;
   longitude: number;
 }
 
@@ -37,13 +32,16 @@ const Home: React.FC = () => {
   const inputEl = useRef<HTMLInputElement>(null);
 
   const [ipdata, setIpdata] = useState<IpData>({} as IpData);
-  const [input, setInput] = useState("Search for any IP address or domain");
-  const [coord, setCoord] = useState<Coordinates>({} as Coordinates);
+  const [timezone, setTimezone] = useState("");
 
   useEffect(() => {
     try {
-      api.get(`${key}=${""}`).then((res) => {
+      api.get(`${"189.6.24.243"}?access_key=${`${key}`}`).then((res) => {
         setIpdata(res.data);
+      });
+
+      api.get("http://ip-api.com/json/").then((res) => {
+        setTimezone(res.data.timezone);
       });
     } catch (err) {
       console.log(err);
@@ -53,20 +51,26 @@ const Home: React.FC = () => {
   const handleClick = useCallback((ev) => {
     ev.preventDefault();
 
-    api.get(`${key}=${`${"" || inputEl.current?.value}`}`).then((res) => {
-      setIpdata(res.data);
-    });
+    try {
+      api.get(`${inputEl.current?.value}?access_key=${key}`).then((res) => {
+        const response = res.data;
+        if (response.type === null) {
+          return console.log("Endereço de ip invalido");
+        }
+
+        setIpdata(response);
+        console.log(response);
+      });
+
+      api
+        .get(`http://ip-api.com/json/${inputEl.current?.value}`)
+        .then((res) => {
+          setTimezone(res.data.timezone);
+        });
+    } catch (err) {
+      console.log("Endereço de ip inválido", err);
+    }
   }, []);
-
-  const latitude =
-    ipdata.location === undefined
-      ? parseFloat("-10")
-      : parseFloat(ipdata.location.lat);
-
-  const long =
-    ipdata.location === undefined
-      ? parseFloat("-10")
-      : parseFloat(ipdata.location.lng);
 
   return (
     <Main>
@@ -75,7 +79,11 @@ const Home: React.FC = () => {
           <h1>IP Address Tracker</h1>
           <form onSubmit={handleClick}>
             <Input>
-              <input type="text" placeholder={input} ref={inputEl} />
+              <input
+                type="text"
+                placeholder="Search for any IP address or domain"
+                ref={inputEl}
+              />
               <IoIosArrowForward
                 color="white"
                 size={40}
@@ -85,64 +93,64 @@ const Home: React.FC = () => {
           </form>
         </div>
         <Location>
-          <div>
+          <div className="location-container">
             <div className="location-group">
               <h3>IP ADDRESS</h3>
               <h2>{ipdata.ip === undefined ? "Loading..." : ipdata.ip}</h2>
             </div>
+            <div className="vertical-line"></div>
             <div className="location-group">
-              <div className="vertical-line" />
-              <div>
-                <h3>LOCATION</h3>
-                <h2>
-                  {ipdata.location === undefined
-                    ? "Loading..."
-                    : ipdata.location.city}
-                  {ipdata.location === undefined
-                    ? ""
-                    : `, ${ipdata.location.country}`}
-                </h2>
-                <span>
-                  {ipdata.location === undefined
-                    ? "Loading..."
-                    : ipdata.location.postalCode}
-                </span>
-              </div>
+              <h3>LOCATION</h3>
+              <h2>
+                {ipdata.city === undefined ? "Loading..." : ipdata.city}
+                {ipdata.region_code === undefined
+                  ? ""
+                  : `, ${ipdata.region_code}`}
+              </h2>
             </div>
+            <div className="vertical-line"></div>
             <div className="location-group">
-              <div className="vertical-line" />
               <div>
                 <h3>TIMEZONE</h3>
-                <h2>
-                  {ipdata.location === undefined
-                    ? "Loading..."
-                    : `UTC ${ipdata.location.timezone}`}
-                </h2>
+                <h2>{timezone === "" ? "Loading" : timezone}</h2>
               </div>
             </div>
 
-            <div className="location-group">
-              <div className="vertical-line" />
-              <div>
-                <h3>ISP</h3>
-                <h2>{ipdata.isp === undefined ? "Loading..." : ipdata.isp}</h2>
-              </div>
-            </div>
+            <img
+              alt={ipdata.region_code}
+              src={
+                ipdata.location === undefined
+                  ? "Loading..."
+                  : ipdata.location.country_flag
+              }
+            />
           </div>
         </Location>
       </Container>
 
-      <MapContainer
-        center={{ lat: -43.232, lng: 93.239 }}
-        zoom={15}
-        style={{ width: "100%", height: "100%" }}
-      >
-        <TileLayer
-          url={`https://api.mapbox.com/styles/v1/mapbox/streets-v10/tiles/{z}/{x}/{y}?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}
-        />
+      {ipdata.location !== undefined && (
+        <MapContainer
+          center={{
+            lat: ipdata.latitude,
+            lng: ipdata.longitude,
+          }}
+          zoom={15}
+          style={{ width: "100%", height: "100%" }}
+        >
+          <TileLayer
+            url={`https://api.mapbox.com/styles/v1/mapbox/streets-v10/tiles/{z}/{x}/{y}?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}
+          />
 
-        <Marker position={[-43.232, 93.239]}></Marker>
-      </MapContainer>
+          <Marker
+            icon={customMarker}
+            position={[ipdata.latitude, ipdata.longitude]}
+          >
+            <Popup>
+              <span>You are here</span>
+            </Popup>
+          </Marker>
+        </MapContainer>
+      )}
     </Main>
   );
 };
