@@ -206,6 +206,8 @@ export const Location = styled.div`
       min-height: 100px;
 
       img {
+        overflow: hidden;
+        object-fit: cover;
         width: 70px;
         height: 50px;
       }
@@ -260,7 +262,8 @@ export const Location = styled.div`
       font-size: 7px;
 
       img {
-        width: 50px;
+        border-radius: 4px;
+        width: 70px;
         height: 30px;
         margin: 20px 0px 20px 0px;
       }

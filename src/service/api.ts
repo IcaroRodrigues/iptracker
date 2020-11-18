@@ -13,7 +13,11 @@ export { api, key };
 const key = `3774ffb622bc3ee6eecbb6826b60d628`;
 
 const api = axios.create({
-  baseURL: `http://api.ipstack.com/`,
+  baseURL: "https://extreme-ip-lookup.com/json/",
 });
 
-export { api, key };
+const countrieFlagApi = axios.create({
+  baseURL: "https://restcountries.eu/rest/v2/alpha/",
+});
+
+export { api, countrieFlagApi };
