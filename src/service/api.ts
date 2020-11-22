@@ -8,16 +8,12 @@ const api = axios.create({
 });
 
 export { api, key };
+
+
 */
-
-const key = `3774ffb622bc3ee6eecbb6826b60d628`;
-
+const key = `f3b0cfd291ef4bf3a41f38409ba2c075`;
 const api = axios.create({
-  baseURL: "https://extreme-ip-lookup.com/json/",
+  baseURL: "https://ipgeolocation.abstractapi.com/v1/",
 });
 
-const countrieFlagApi = axios.create({
-  baseURL: "https://restcountries.eu/rest/v2/alpha/",
-});
-
-export { api, countrieFlagApi };
+export { api, key };
