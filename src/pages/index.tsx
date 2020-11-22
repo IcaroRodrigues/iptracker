@@ -49,7 +49,7 @@ const Home: React.FC = () => {
     ev.preventDefault();
 
     try {
-      api.get(`?api_key=${key}&ip_address=8.8.8.8`).then((res) => {
+      api.get(`?api_key=${key}&ip_address=${inputEl.current?.value}`).then((res) => {
         const response = res.data;
         if (response.type === null) {
           return console.log("Endereço de ip invalido");
