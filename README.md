@@ -17,6 +17,10 @@ As seguintes ferramentas foram usadas na construção do projeto:
 - [React](https://pt-br.reactjs.org/)
 - [TypeScript](https://www.typescriptlang.org/)
 - [Axios](https://github.com/axios/axios)
+- [Leaflet](https://leafletjs.com/)
+- [styled-components](https://styled-components.com/)
+- [react-icons](https://react-icons.github.io/react-icons/)
+
 
 ### Autor
 ---
