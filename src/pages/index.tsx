@@ -41,6 +41,7 @@ const Home: React.FC = () => {
   useEffect(() => {
 
     api.get(`?api_key=${key}&ip_address`).then(res => {
+      console.log(res.data)
       setIpdata(res.data)
     })
   }, [])
