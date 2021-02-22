@@ -27,5 +27,5 @@ As seguintes ferramentas foram usadas na construção do projeto:
 
 Feito por Icaro Rodrigues 👋🏽 Entre em contato!
 
-[![Linkedin Badge](https://img.shields.io/badge/-Thiago-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/IcaroRodriguesCerqueira)](https://www.linkedin.com/in/IcaroRodriguesCerqueira/) 
-[![Hotmail Badge](https://img.shields.io/badge/-tgmarinho@gmail.com-c14438?style=flat-square&logo=Gmail&logoColor=white&link=mailto:icaro_rodrigues@outlook.com.br)](mailto:icaro_rodrigues@outlook.com.br)
+[![Linkedin Badge](https://img.shields.io/badge/-Icaro-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/IcaroRodriguesCerqueira)](https://www.linkedin.com/in/IcaroRodriguesCerqueira/) 
+[![Hotmail Badge](https://img.shields.io/badge/-icaro_rodrigues@outlook.com.br-c14438?style=flat-square&logo=Gmail&logoColor=white&link=mailto:icaro_rodrigues@outlook.com.br)](mailto:icaro_rodrigues@outlook.com.br)
