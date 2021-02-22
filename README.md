@@ -1,6 +1,6 @@
 ### IP TRACKER
 
-- Pequeno site para localização através do ip informado.
+- Pequeno site de geolocalização através do ip informado.
 
 
 <h1 align="center">
